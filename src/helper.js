@@ -1,24 +1,19 @@
-import React from "react";
-
 export const helper = {
-  handleTextBar(dispatch, action, type) {
+  handleUserText(dispatch, action, toReset) {
     return e => {
-      if (e.key !== "Enter" && type === "SUBMIT_INPUT") {
-        return;
-      }
-      dispatch(action(type, {time: Date.now(), value: e.target.value}));
+      dispatch(action("CONTROLLED_INPUT", {value: toReset ? "" : e.target.value}));
     };
   },
 
-  viewListElements(list) {
-    return list.map(each => (
-      <li key={each.todoId}>
-        <div className="todoText">{each.value}</div>
-        <button className="todoRemoveButton" id={each.todoId}>
-          {"remove"}
-        </button>
-      </li>
-    ));
+  handleSubmit(dispatch, action, type, data) {
+    return e => {
+      data = data.trim();
+      helper.handleUserText(dispatch, action, true)();
+      e.preventDefault();
+      if (data !== "") {
+        dispatch(action(type, {time: Date.now(), value: data}));
+      }
+    };
   },
 
   removeToDo(dispatch, action, type) {

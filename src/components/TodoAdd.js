@@ -6,17 +6,20 @@ import {singleDataAction} from "../action/action.js";
 class TodoAdd extends Component {
 
   render() {
-    const {dispatch} = this.props;
+    const {dispatch, controlledInput} = this.props;
+    const {handleUserText, handleSubmit} = helper;
 
     return (
       <div className="todoAdd">
-        <input
-            autoFocus
-            type="text"
-            onChange={helper.handleTextBar(dispatch, singleDataAction, "UPDATE_INPUT")}
-            value={this.props.controlledInput}
-            onKeyUp={helper.handleTextBar(dispatch, singleDataAction, "SUBMIT_INPUT")}
-        />
+        <form onSubmit={handleSubmit(dispatch, singleDataAction, "ADD_TODO", controlledInput)}>
+          <input
+              autoFocus
+              type="text"
+              onChange={handleUserText(dispatch, singleDataAction)}
+              value={controlledInput}
+          />
+          <button type="button" onClick={handleSubmit(dispatch, singleDataAction, "ADD_TODO", controlledInput)}>submit</button>
+        </form>
       </div>
     );
   }
