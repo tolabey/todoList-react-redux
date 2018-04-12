@@ -1,7 +1,7 @@
 export const helper = {
-  handleUserText(dispatch, action, toReset) {
+  handleUserText(dispatch, action, type, toReset) {
     return e => {
-      dispatch(action("USER_INPUT", {value: toReset ? "" : e.target.value}));
+      dispatch(action(type, {value: toReset ? "" : e.target.value}));
     };
   },
 
@@ -19,7 +19,7 @@ export const helper = {
     return () => {
       const trimData = data.value.trim();
 
-      helper.handleUserText(dispatch, action, true)(); // reset text-area
+      helper.handleUserText(dispatch, action, "USER_INPUT", true)(); // reset text-area
       if (trimData !== "") {
         // when submit something, editing is over it should reset by using submitted data.
         helper.handleEditedText(dispatch, action, data.id, true, trimData)();

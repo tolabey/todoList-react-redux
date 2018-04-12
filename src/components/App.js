@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import TodoView from "./TodoView.js";
 import TodoAdd from "./TodoAdd.js";
+import TodoSearch from "./TodoSearch.js";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 import {reducer} from "../reducer/reducer.js";
@@ -20,6 +21,7 @@ class App extends Component {
             <div className={"title"}>
               {"Todo"}
             </div>
+            <TodoSearch/>
             <TodoAdd/>
             <TodoView/>
           </div>

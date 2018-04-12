@@ -4,19 +4,11 @@ import TodoElementEdit from "./TodoElementEdit.js";
 
 class TodoElement extends Component {
 
-  view(each) {
-    if (!each.get("editable")) {
-      return <TodoElementView each={each}/>;
-    }
-
-    return <TodoElementEdit each={each}/>;
-  }
-
   render() {
     const {each} = this.props;
 
     return (
-        this.view(each)
+      each.get("editable") ? <TodoElementEdit each={each}/> : <TodoElementView each={each}/>
     );
   }
 }

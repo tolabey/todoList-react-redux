@@ -6,11 +6,3 @@ export function singleDataAction(type, payload) {
     payload: I.fromJS(payload)
   };
 }
-
-export function multipleDataAction(type, id, payload) {
-  return {
-    type,
-    id,
-    payload
-  };
-}

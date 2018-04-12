@@ -19,22 +19,19 @@ export function reducer(store = I.Map(), action) {
 
   case "EDIT_TODO": // beautify this!
     const editTodoElement = store.get("todoList", I.List()).map(each => {
-      if (each.get("todoId") === action.payload.get("todoId", "*")) {
-        return action.payload;
-      }
+      const control = each.get("todoId") === action.payload.get("todoId", "*");
 
-      return each;
+      return control ? action.payload : each;
     });
 
     return store.set("todoList", editTodoElement);
 
   case "CANCEL_EDIT_TODO":
     const cancelTodoEdit = store.get("todoList", I.List()).map(each => {
-      if (each.get("todoId") === action.payload.get("todoId", "*")) {
-        return action.payload;
-      }
+      const idControl = each.get("todoId") === action.payload.get("todoId", "*");
 
-      return each;
+
+      return idControl ? action.payload : each;
     });
 
     return store.set("todoList", cancelTodoEdit);
@@ -48,11 +45,7 @@ export function reducer(store = I.Map(), action) {
 
   case "EDITABLE_LIST_ELEMENT":
     const editableTodo = store.get("todoList", I.List()).map(each => {
-      if (each.get("todoId") === action.payload) {
-        return each.set("editable", true);
-      }
-
-      return each;
+      return each.get("todoId") === action.payload ? each.set("editable", true) : each;
     });
 
     return store.remove("todoList").set("todoList", editableTodo);
@@ -61,6 +54,9 @@ export function reducer(store = I.Map(), action) {
   case "DEBOUNCE_TIMEOUT":
 
     return store.set("debounceTimeout", action.payload);
+
+  case "SEARCH_TEXT":
+    return store.set("searchText", action.payload.get("value"));
 
   default:
     return store;

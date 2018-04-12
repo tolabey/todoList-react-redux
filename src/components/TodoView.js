@@ -4,23 +4,18 @@ import {connect} from "react-redux";
 import TodoElement from "./TodoElement.js";
 
 class TodoView extends Component {
-
-  viewTodoElements(todoList) {
-    return (
-      todoList.map(each => (
-        <TodoElement key={each.get("todoId")} each={each} />
-      ))
-    );
-  }
-
-
   render() {
-    const {todoList} = this.props;
+    const {todoList, searchText} = this.props;
+    const todoItemsTbShown = todoList.filter(each => each.get("value", "").includes(searchText));
 
     return (
       <div className="todo">
         <ul className="todoUl">
-          {this.viewTodoElements(todoList)}
+          {
+            todoItemsTbShown.map(each => (
+              <TodoElement key={each.get("todoId")} each={each} />
+            ))
+          }
         </ul>
       </div>
     );
@@ -30,7 +25,8 @@ class TodoView extends Component {
 
 function mapStateToProps(store) {
   return {
-    todoList: store.get("todoList", I.List())
+    todoList: store.get("todoList", I.List()),
+    searchText: store.get("searchText", "")
   };
 }
 
