@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import I from "immutable";
 import {connect} from "react-redux";
-import TodoElement from "./TodoElement.js";
+import TodoElementView from "./TodoElementView.js";
+import TodoElementEdit from "./TodoElementEdit.js";
 
 class TodoView extends Component {
 
@@ -14,7 +15,7 @@ class TodoView extends Component {
         <ul className="todoUl">
           {
             todoItemsTbShown.map(each => (
-              <TodoElement key={each.get("todoId")} each={each} />
+              each.get("editable") ? <TodoElementEdit each={each}/> : <TodoElementView each={each}/>
             ))
           }
         </ul>
