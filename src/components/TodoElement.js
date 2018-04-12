@@ -13,5 +13,4 @@ class TodoElement extends Component {
   }
 }
 
-
 export default TodoElement;

@@ -21,8 +21,8 @@ class App extends Component {
             <div className={"title"}>
               {"Todo"}
             </div>
-            <TodoSearch/>
             <TodoAdd/>
+            <TodoSearch/>
             <TodoView/>
           </div>
         </div>

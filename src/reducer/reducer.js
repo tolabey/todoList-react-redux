@@ -19,7 +19,7 @@ export function reducer(store = I.Map(), action) {
 
   case "EDIT_TODO": // beautify this!
     const editTodoElement = store.get("todoList", I.List()).map(each => {
-      const control = each.get("todoId") === action.payload.get("todoId", "*");
+      const control = each.get("todoId", "?") === action.payload.get("todoId", "*");
 
       return control ? action.payload : each;
     });
@@ -30,14 +30,12 @@ export function reducer(store = I.Map(), action) {
     const cancelTodoEdit = store.get("todoList", I.List()).map(each => {
       const idControl = each.get("todoId") === action.payload.get("todoId", "*");
 
-
       return idControl ? action.payload : each;
     });
 
     return store.set("todoList", cancelTodoEdit);
 
   case "REMOVE_LIST_ELEMENT":
-
     const newTodoList = store.get("todoList").filter(each => each.get("todoId") !== action.payload);
 
     return store.remove("todoList").set("todoList", newTodoList);
@@ -52,7 +50,6 @@ export function reducer(store = I.Map(), action) {
 
 
   case "DEBOUNCE_TIMEOUT":
-
     return store.set("debounceTimeout", action.payload);
 
   case "SEARCH_TEXT":

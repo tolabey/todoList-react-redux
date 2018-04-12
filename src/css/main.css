@@ -46,14 +46,6 @@ button {
     align-items: center;
 }
 
-.App .container .todoAdd form {
-    height: 100px;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .App .container .todoAdd input, .App .container .todoSearch input {
     border: 0;
     border-radius: 4px;

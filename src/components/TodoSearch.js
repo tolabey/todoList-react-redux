@@ -18,6 +18,7 @@ class TodoSearch extends Component {
             type="text"
             onChange={handleUserText(dispatch, singleDataAction, "SEARCH_TEXT")}
             value={searchText}
+            placeholder="Search Todo"
         />
       </div>
     );

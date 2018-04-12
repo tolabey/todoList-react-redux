@@ -46,5 +46,4 @@ function mapStateToProps(store) {
   };
 }
 
-
 export default connect(mapStateToProps)(TodoElementEdit);

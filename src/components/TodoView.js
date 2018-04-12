@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import TodoElement from "./TodoElement.js";
 
 class TodoView extends Component {
+
   render() {
     const {todoList, searchText} = this.props;
     const todoItemsTbShown = todoList.filter(each => each.get("value", "").includes(searchText));
@@ -22,13 +23,11 @@ class TodoView extends Component {
   }
 }
 
-
 function mapStateToProps(store) {
   return {
     todoList: store.get("todoList", I.List()),
     searchText: store.get("searchText", "")
   };
 }
-
 
 export default connect(mapStateToProps)(TodoView);

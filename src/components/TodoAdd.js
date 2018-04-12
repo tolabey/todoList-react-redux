@@ -11,16 +11,15 @@ class TodoAdd extends Component {
 
     return (
       <div className="todoAdd">
-        <form onSubmit={e => e.preventDefault()}>
-          <div className="icon"><i className="far fa-plus-square"></i></div>
-          <input
-              autoFocus
-              type="text"
-              onChange={handleUserText(dispatch, singleDataAction, "USER_INPUT")}
-              value={userInput}
-              onKeyUp={() => debounce(dispatch, handleSubmit, userInput, singleDataAction, "ADD_TODO", debounceTimeout || null)}
-          />
-        </form>
+        <div className="icon"><i className="far fa-plus-square" /></div>
+        <input
+            autoFocus
+            type="text"
+            onChange={handleUserText(dispatch, singleDataAction, "USER_INPUT")}
+            value={userInput}
+            onKeyUp={() => debounce(dispatch, handleSubmit, userInput, singleDataAction, "ADD_TODO", debounceTimeout || null)}
+            placeholder="Add Todo"
+        />
       </div>
     );
   }

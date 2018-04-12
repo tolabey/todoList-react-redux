@@ -26,5 +26,4 @@ class TodoElementView extends Component {
   }
 }
 
-
 export default connect()(TodoElementView);
