@@ -6,19 +6,19 @@ import {singleDataAction} from "../action/action.js";
 class TodoAdd extends Component {
 
   render() {
-    const {dispatch, controlledInput} = this.props;
-    const {handleUserText, handleSubmit} = helper;
+    const {dispatch, userInput, debounceTimeout} = this.props;
+    const {handleUserText, handleSubmit, debounce} = helper;
 
     return (
       <div className="todoAdd">
-        <form onSubmit={handleSubmit(dispatch, singleDataAction, "ADD_TODO", controlledInput)}>
+        <form onSubmit={e => e.preventDefault()}>
           <input
               autoFocus
               type="text"
               onChange={handleUserText(dispatch, singleDataAction)}
-              value={controlledInput}
+              value={userInput}
+              onKeyUp={() => debounce(dispatch, handleSubmit, userInput, singleDataAction, "ADD_TODO", debounceTimeout || null)}
           />
-          <button type="button" onClick={handleSubmit(dispatch, singleDataAction, "ADD_TODO", controlledInput)}>submit</button>
         </form>
       </div>
     );
@@ -27,7 +27,8 @@ class TodoAdd extends Component {
 
 function mapStateToProps(store) {
   return {
-    controlledInput: store.get("controlledInput", "")
+    userInput: store.get("userInput", ""),
+    debounceTimeout: store.get("debounceTimeout")
   };
 }
 

@@ -1,7 +1,9 @@
+import I from "immutable";
+
 export function singleDataAction(type, payload) {
   return {
     type,
-    payload
+    payload: I.fromJS(payload)
   };
 }
 

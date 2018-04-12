@@ -1,19 +1,25 @@
 import React, {Component} from "react";
+import TodoElementView from "./TodoElementView.js";
+import TodoElementEdit from "./TodoElementEdit.js";
 
-class TodoView extends Component {
+class TodoElement extends Component {
+
+  view(each) {
+    if (!each.get("editable")) {
+      return <TodoElementView each={each}/>;
+    }
+
+    return <TodoElementEdit each={each}/>;
+  }
+
   render() {
     const {each} = this.props;
 
     return (
-      <li key={each.todoId}>
-        <div className="todoText">{each.value}</div>
-        <button className="todoRemoveButton" id={each.todoId}>
-          {"remove"}
-        </button>
-      </li>
+        this.view(each)
     );
   }
 }
 
 
-export default TodoView;
+export default TodoElement;
