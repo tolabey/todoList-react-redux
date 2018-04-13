@@ -6,6 +6,7 @@ export const helper = {
   },
 
   handleEditedText(dispatch, action, id, toReset, val) {
+    console.log("iyi mi");
     return e => {
       const editingTodo = {};
 

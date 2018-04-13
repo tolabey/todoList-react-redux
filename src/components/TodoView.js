@@ -15,7 +15,7 @@ class TodoView extends Component {
         <ul className="todoUl">
           {
             todoItemsTbShown.map(each => (
-              each.get("editable") ? <TodoElementEdit key={each.get("todoId")} each={each}/> : <TodoElementView each={each}/>
+              each.get("editable") ? <TodoElementEdit key={each.get("todoId")} each={each}/> : <TodoElementView key={each.get("todoId")} each={each}/>
             ))
           }
         </ul>
