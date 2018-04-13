@@ -71,7 +71,7 @@ button {
 .todo .todoUl li {
     width: 90%;
     height: 50px;
-    background-color: dimgray;
+    background-color: white;
     border-radius: 4px;
     display: flex;
     justify-content: flex-start;
