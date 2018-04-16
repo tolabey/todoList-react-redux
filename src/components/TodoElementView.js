@@ -15,7 +15,7 @@ class TodoElementView extends Component {
         <button
             className="todoButton fas fa-edit"
             id={each.get("todoId")}
-            onClick={handleTodoButtons(dispatch, singleDataAction, "EDITABLE_LIST_ELEMENT", each.get("todoId"))}
+            onClick={handleTodoButtons(dispatch, singleDataAction, "EDIT_LIST_ELEMENT", each.get("todoId"), null)}
         />
         <button
             className="todoButton fas fa-trash"

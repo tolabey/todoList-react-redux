@@ -7,7 +7,7 @@ class TodoSearch extends Component {
 
   render() {
     const {dispatch, searchText} = this.props;
-    const {handleUserText} = helper;
+    const {handleSearchText} = helper;
 
     return (
       <div className="todoSearch">
@@ -16,7 +16,7 @@ class TodoSearch extends Component {
         </div>
         <input
             type="text"
-            onChange={handleUserText(dispatch, singleDataAction, "SEARCH_TEXT")}
+            onChange={handleSearchText(dispatch, singleDataAction, "SEARCH_TEXT")}
             value={searchText}
             placeholder="Search Todo"
         />

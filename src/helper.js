@@ -1,7 +1,10 @@
+import {singleDataAction} from "./action/action";
+
 export const helper = {
-  handleUserText(dispatch, action, type, toReset) {
+  handleAddText(dispatch, action, addInputType, todoType, debounceTimeout, toReset) {
     return e => {
-      dispatch(action(type, {value: toReset ? "" : e.target.value}));
+      dispatch(action(addInputType, {value: toReset ? "" : e.target.value}));
+      helper.debounce(dispatch, helper.handleSubmit, e.target.value, singleDataAction, todoType, debounceTimeout || null, addInputType);
     };
   },
 
@@ -9,22 +12,26 @@ export const helper = {
     return e => {
       const editingTodo = {};
 
-      // when submited something e.target.value cant be used anymore
       editingTodo[id] = toReset ? val : e.target.value;
       dispatch(action("EDIT_TEXT", editingTodo));
     };
   },
 
-  handleSubmit(dispatch, action, type, data) {
+  handleSubmit(dispatch, action, type, data, clearType = null) {
     return () => {
       const trimData = data.value.trim();
 
-      helper.handleUserText(dispatch, action, "USER_INPUT", true)(); // reset text-area
       if (trimData !== "") {
         // when submit something, editing is over it should reset by using submitted data.
-        helper.handleEditedText(dispatch, action, data.id, true, trimData)();
+        dispatch(action(clearType, {value: ""}));
         dispatch(action(type, {todoId: data.id || Date.now(), value: trimData, editable: false}));
       }
+    };
+  },
+
+  handleSearchText(dispatch, action, type) {
+    return e => {
+      dispatch(action(type, {value: e.target.value}));
     };
   },
 
@@ -36,9 +43,9 @@ export const helper = {
     };
   },
 
-  debounce(dispatch, operator, data, action, type, timeout) {
+  debounce(dispatch, operator, data, action, type, timeout, clearType) {
     clearTimeout(timeout);
-    const newTimeout = setTimeout(operator(dispatch, action, type, {value: data}), 800);
+    const newTimeout = setTimeout(operator(dispatch, action, type, {value: data}, clearType), 800);
 
     dispatch(action("DEBOUNCE_TIMEOUT", newTimeout));
   }

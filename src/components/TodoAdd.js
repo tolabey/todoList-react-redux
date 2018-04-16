@@ -6,8 +6,8 @@ import {singleDataAction} from "../action/action.js";
 class TodoAdd extends Component {
 
   render() {
-    const {dispatch, userInput, debounceTimeout} = this.props;
-    const {handleUserText, handleSubmit, debounce} = helper;
+    const {dispatch, addInput, debounceTimeout} = this.props;
+    const {handleAddText} = helper;
 
     return (
       <div className="todoAdd">
@@ -15,9 +15,8 @@ class TodoAdd extends Component {
         <input
             autoFocus
             type="text"
-            onChange={handleUserText(dispatch, singleDataAction, "USER_INPUT")}
-            value={userInput}
-            onKeyUp={() => debounce(dispatch, handleSubmit, userInput, singleDataAction, "ADD_TODO", debounceTimeout || null)}
+            onChange={handleAddText(dispatch, singleDataAction, "ADD_TEXT", "ADD_TODO", debounceTimeout)}
+            value={addInput}
             placeholder="Add Todo"
         />
       </div>
@@ -27,7 +26,7 @@ class TodoAdd extends Component {
 
 function mapStateToProps(store) {
   return {
-    userInput: store.get("userInput", ""),
+    addInput: store.get("addInput", ""),
     debounceTimeout: store.get("debounceTimeout")
   };
 }

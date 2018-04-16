@@ -11,6 +11,7 @@ class TodoElementEdit extends Component {
     const {dispatch, each, editText} = this.props;
     const {handleEditedText, handleSubmit} = helper;
 
+
     return (
       <li>
         <input

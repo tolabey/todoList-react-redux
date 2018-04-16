@@ -3,8 +3,8 @@ import I from "immutable";
 export function reducer(store = I.Map(), action) {
   switch (action.type) {
 
-  case "USER_INPUT":
-    return store.set("userInput", action.payload.get("value"));
+  case "ADD_TEXT":
+    return store.set("addInput", action.payload.get("value"));
 
   case "ADD_TODO":
     return store.set("todoList",
@@ -19,21 +19,25 @@ export function reducer(store = I.Map(), action) {
 
   case "EDIT_TODO": // beautify this!
     const editTodoElement = store.get("todoList", I.List()).map(each => {
-      const control = each.get("todoId", "?") === action.payload.get("todoId", "*");
+      const editIdcontrol = each.get("todoId") === action.payload.get("todoId");
 
-      return control ? action.payload : each;
+      return editIdcontrol ? action.payload : each;
     });
 
     return store.set("todoList", editTodoElement);
 
   case "CANCEL_EDIT_TODO":
+    const resetEditTextObj = {};
     const cancelTodoEdit = store.get("todoList", I.List()).map(each => {
-      const idControl = each.get("todoId") === action.payload.get("todoId", "*");
+      const cancelIdControl = each.get("todoId") === action.payload.get("todoId");
 
-      return idControl ? action.payload : each;
+      return cancelIdControl ? action.payload : each;
     });
 
-    return store.set("todoList", cancelTodoEdit);
+    resetEditTextObj[action.payload.get("todoId")] = action.payload.get("value");
+
+    return store.set("todoList", cancelTodoEdit)
+      .set("editText", store.get("editText").merge(I.fromJS(resetEditTextObj)));
 
   case "REMOVE_LIST_ELEMENT":
     const newTodoList = store.get("todoList").filter(each => each.get("todoId") !== action.payload);
@@ -41,7 +45,7 @@ export function reducer(store = I.Map(), action) {
     return store.remove("todoList").set("todoList", newTodoList);
 
 
-  case "EDITABLE_LIST_ELEMENT":
+  case "EDIT_LIST_ELEMENT":
     const editableTodo = store.get("todoList", I.List()).map(each => {
       return each.get("todoId") === action.payload ? each.set("editable", true) : each;
     });
