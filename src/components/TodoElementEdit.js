@@ -24,8 +24,9 @@ class TodoElementEdit extends Component {
             id={each.get("todoId")}
             onClick={
               handleSubmit(dispatch, singleDataAction, "EDIT_TODO",
-                {value: editText.get(`${each.get("todoId", "")}`,
-               each.get("value", "-")), id: each.get("todoId")}
+                {value:
+                    editText.get(`${each.get("todoId", "")}`),
+                  id: each.get("todoId")}
               )
             }
         />
